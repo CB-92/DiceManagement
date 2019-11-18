@@ -2,32 +2,37 @@ import glob
 import os
 import random as rnd
 import natsort
+import json
 import re
+from dice.database import Database
 
-# list of all available dice sets
-_DICE_SETS = [{
-    'id': 1,
-    'name': 'basic',
-    'folder': './monolith/resources/basic_set'
-    }, {
-        'id': 2,
-        'name': 'halloween',
-        'folder': './monolith/resources/halloween_set'
-        }]
+db = Database()
 
 
 class Die:
 
-    def __init__(self, filename):
+    def __init__(self, diejson):
         self.faces = []
         self.pip = None
-        f = open(filename, "r")
-        lines = f.readlines()
 
-        for line in lines:
-            self.faces.append(line.replace("\n", ""))
+        self.faces.append(diejson["face0"])
+        self.faces.append(diejson["face1"])
+        self.faces.append(diejson["face2"])
+        self.faces.append(diejson["face3"])
+        self.faces.append(diejson["face4"])
+        self.faces.append(diejson["face5"])
         self.throw_die()
-        f.close()
+
+        """ with open(filename) as f:
+            t = json.load(f)
+            self.faces.append(t["face0"])
+            self.faces.append(t["face1"])
+            self.faces.append(t["face2"])
+            self.faces.append(t["face3"])
+            self.faces.append(t["face4"])
+            self.faces.append(t["face5"])
+            self.throw_die()
+            f.close() """
 
     def throw_die(self):
         if self.faces:  # pythonic for list is not empty
@@ -43,20 +48,33 @@ class DiceSet:
         self.dice = []
         self.pips = []
 
-        dice_folder = ""
-        for e in _DICE_SETS:
-            if e['name'] == set_name:
-                dice_folder = e['folder']
+        ds = db.get_all_dice_in_set(set_name)
 
-        if dice_folder == "":
-            raise NonExistingSetError("Dice set not found")
+      # TODO: check if diceset exists!  
 
-        folder = glob.glob(os.path.join(dice_folder, '*.txt'))
-        sorted(folder)
-
-        for filename in natsort.natsorted(folder, reverse=False):
-            die = Die(filename)
+        for e in ds:
+            die = Die(e)
             self.dice.append(die)
+
+        # for e in db.getAllCollection("DiceSet"):
+        #     print(e['name'])
+        #     if e['name'] == set_name+"_set":
+        #         dice_folder = e['folder']
+
+        # if dice_folder == "":
+        #     raise NonExistingSetError("Dice set not found")
+
+        # a = db.get_all_dice_in_set(set_name)
+
+        # for i in a:
+        #     print(i)
+
+        # folder = glob.glob(os.path.join(dice_folder, '*.json'))
+        # sorted(folder)
+
+        # for filename in natsort.natsorted(folder, reverse=False):
+        #     die = Die(filename)
+        #     self.dice.append(die)
 
     def throw_dice(self, dicenumber):
         pattern = re.compile("^[0-9]*$")
