@@ -36,3 +36,7 @@ class Database:
 
     def get_all_dice_in_set(self, set_name):
         return db["Die"].find({"set": set_name})
+
+    def remove_all_dice_in_set(self, set_name):
+        myquery = {"set": set_name}
+        db["Die"].delete_many(myquery)
