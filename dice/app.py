@@ -6,10 +6,10 @@ from dice.views import blueprints
 def create_app(debug=False):
     app = Flask(__name__)
     app.config['TESTING'] = debug
-    app.config['LOGIN_DISABLED'] = True
+    """ app.config['LOGIN_DISABLED'] = True
     app.config['WTF_CSRF_ENABLED'] = False
     app.config['WTF_CSRF_SECRET_KEY'] = 'A SECRET KEY'
-    app.config['SECRET_KEY'] = 'ANOTHER ONE'
+    app.config['SECRET_KEY'] = 'ANOTHER ONE' """
 
     db = Database()
     db.initDiceSets("dice/resources")

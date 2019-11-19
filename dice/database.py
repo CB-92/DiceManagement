@@ -15,10 +15,10 @@ class Database:
     def initDiceSets(self, res_folder):
         db["DiceSet"].drop()
         subfolders = [f.name for f in os.scandir(res_folder) if f.is_dir()]
-        print(subfolders)
         for f in subfolders:
+            name = f.replace("_set", "")
             t = {
-                "name": f,
+                "name": name,
                 "folder": res_folder + "/" + f
             }
             diceset.insert_one(t)
@@ -40,3 +40,7 @@ class Database:
     def remove_all_dice_in_set(self, set_name):
         myquery = {"set": set_name}
         db["Die"].delete_many(myquery)
+
+    def total_dice_in_set(self, set_name):
+        myquery = {"set": set_name}
+        return db["Die"].count_documents(myquery)
