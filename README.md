@@ -1,3 +1,5 @@
 # DiceManagement
-[![Build Status](https://travis-ci.org/<github CB-92>/<repo DiceManagement>.svg?branch=master)](https://travis-ci.org/<github CB-92>/<repo DiceManagement>) [![Coverage Status](https://coveralls.io/repos/github/<github CB-92>/<repo DiceManagement>/badge.svg?branch=master)](https://coveralls.io/github/<github CB-92>/<repo DiceManagement>?branch=master)
+
+[![Build Status](https://travis-ci.org/CB-92/DiceManagement.svg?branch=master)](https://travis-ci.org/CB-92/DiceManagement) [![Coverage Status](https://coveralls.io/repos/github/CB-92/DiceManagement/badge.svg?branch=master)](https://coveralls.io/github/CB-92/DiceManagement?branch=master)
+
 DiceManagement microservice splitted from https://github.com/SWE-AGGERS/SocialDice.git
