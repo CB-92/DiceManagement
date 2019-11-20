@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from dice.database import Database
+from dice.classes.database import Database
 from dice.classes.DiceSet import DiceSet, WrongDiceNumberError
 from dice.classes.DiceSet import NonExistingSetError, WrongArgumentTypeError
 
@@ -19,15 +19,15 @@ def _roll(dicenumber, dicesetid):
     try:
         dice = DiceSet(dicesetid)
     except NonExistingSetError as err:
-        return jsonify({"message": err.value()})
+        return jsonify({"message": err.value})
 
     try:
         roll = dice.throw_dice(dicenumber)
     except WrongDiceNumberError as err:
-        return jsonify({"message": err.value()})
+        return jsonify({"message": err.value})
 
     except WrongArgumentTypeError as err:
-        return jsonify({"message": err.value()})
+        return jsonify({"message": err.value})
 
     return jsonify({
         "dice_set": dicesetid,
