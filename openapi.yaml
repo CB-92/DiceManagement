@@ -1,0 +1,65 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: dice_management_service API
+  description: The API to acces the features offered by the DiceManagement service
+  
+paths:
+  /rolldice/<dicenumber>/<dicesetid>:
+    get:
+      summary: Roll <dicenumber> dice from the dice set identified by <dicesetid>.
+      parameters:
+        - in: path
+          name: dicenumber
+          schema:
+            type: string
+          required: true
+          description: The number of dice to roll
+        - in: path
+          name: dicesetid
+          schema:
+            type: string
+          required: true
+          description: The name of the chosen dice set
+      description: Roll <dicenumber> dice from the dice set identified by <dicesetid>.
+      responses:
+        '200':    # status code
+          description: A JSON string containing a response message, the dice set and the roll
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                      type: string
+                      description: >
+                        Messages:
+                        * "Dice number needs to be an integer!" - The specified dice number is not a string.
+                        * "Wrong dice number!" - The specified dice number is negative, equal to 0 ore greater than the total dice number of the chosen set.
+                        * "Dice set <dicesetid> doesn't exist!" - The given dice set name doesn't exist.
+                        * "Correct roll" - Everything is fine
+                  dice_set:
+                      type: string
+                      description: The name of the used dice set.
+                  roll:
+                      type: array
+                      items:
+                        type: string
+  /dicesets:
+      get:
+        summary: Retrieves info about the available dice sets.
+        responses:
+          '200':
+            description: Retrieves information about all the available dice sets.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: the name of the dice set.
+                    total_dice:
+                      type: integer
+                      description: The number of dice composing the dice set.
+            
