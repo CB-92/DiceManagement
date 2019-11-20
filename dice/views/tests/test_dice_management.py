@@ -1,5 +1,6 @@
 import unittest
 import json
+from dice.classes.database import Database
 from dice.app import create_app
 
 _app = None
@@ -16,6 +17,12 @@ class TestDiceManagement(unittest.TestCase):
             tested_app = _app
 
         with tested_app.test_client() as client:
+            db = Database()
+            db.initDiceSets("dice/resources")
+            db.remove_all_dice_in_set("basic")
+            db.remove_all_dice_in_set("halloween")
+            db.initDiceCollection("basic")
+            db.initDiceCollection("halloween")
             reply = client.get("/")
             body = json.loads(str(reply.data, 'utf8'))
             expected = {
@@ -32,6 +39,12 @@ class TestDiceManagement(unittest.TestCase):
             tested_app = _app
 
         with tested_app.test_client() as client:
+            db = Database()
+            db.initDiceSets("dice/resources")
+            db.remove_all_dice_in_set("basic")
+            db.remove_all_dice_in_set("halloween")
+            db.initDiceCollection("basic")
+            db.initDiceCollection("halloween")
             # get available dice sets
             reply = client.get("/dicesets")
             body = json.loads(str(reply.data, 'utf8'))
@@ -52,6 +65,12 @@ class TestDiceManagement(unittest.TestCase):
             tested_app = _app
 
         with tested_app.test_client() as client:
+            db = Database()
+            db.initDiceSets("dice/resources")
+            db.remove_all_dice_in_set("basic")
+            db.remove_all_dice_in_set("halloween")
+            db.initDiceCollection("basic")
+            db.initDiceCollection("halloween")
 
             # wrong dice number
             reply = client.get('/rolldice/12/basic')

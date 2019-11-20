@@ -28,9 +28,6 @@ class TestDie(unittest.TestCase):
 
 class TestDice(unittest.TestCase):
 
-    db = Database()
-    db.initDiceSets('dice/resources')
-
     def test_dice_init(self):
         # correct init
         dice = DiceSet('basic')
