@@ -7,6 +7,22 @@ _app = None
 
 class TestDiceManagement(unittest.TestCase):
 
+    def test_init(self):
+        global _app
+        if _app is None:
+            tested_app = create_app(debug=True)
+            _app = tested_app
+        else:
+            tested_app = _app
+
+        with tested_app.test_client() as client:
+            reply = client.get("/")
+            body = json.loads(str(reply.data, 'utf8'))
+            expected = {
+                "message": "App started"
+            }
+            self.assertEqual(body, expected)
+
     def test_available_tests(self):
         global _app
         if _app is None:

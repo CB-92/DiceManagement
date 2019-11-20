@@ -20,6 +20,9 @@ class TestDie(unittest.TestCase):
         result = die.faces
         print(result)
         self.assertEqual(result, ['bike', 'moonandstars', 'bag', 'bird', 'crying', 'angry'])
+        del die.faces[:]
+        with self.assertRaises(IndexError):
+            die.throw_die()
 
 
 class TestDice(unittest.TestCase):
