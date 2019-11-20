@@ -33,8 +33,8 @@ class TestDice(unittest.TestCase):
         self.assertEqual(dice.dice[1].faces, check1)
 
         # non existing dice set
-        """ with self.assertRaises(NonExistingSetError):
-            DiceSet('pippo') """
+        with self.assertRaises(NonExistingSetError):
+            DiceSet('pippo')
 
     def test_dice_pipes(self):
         dice = DiceSet('basic')

@@ -33,9 +33,12 @@ class DiceSet:
         self.dice = []
         self.pips = []
 
+        # Get all the dice in the specified dice set
         ds = db.get_all_dice_in_set(set_name)
 
-        # TODO: check if diceset exists!
+        # Check if dice set exists
+        if(ds.count() == 0):
+            raise NonExistingSetError("Dice set %s doesn't exist!" % (set_name))
 
         for e in ds:
             die = Die(e)
