@@ -1,5 +1,6 @@
 import random as rnd
 import unittest
+from dice.classes.database import Database
 from dice.classes.DiceSet import Die, DiceSet
 from dice.classes.DiceSet import WrongArgumentTypeError, WrongDiceNumberError
 from dice.classes.DiceSet import NonExistingSetError
@@ -26,6 +27,9 @@ class TestDie(unittest.TestCase):
 
 
 class TestDice(unittest.TestCase):
+
+    db = Database()
+    db.initDiceSets('dice/resources')
 
     def test_dice_init(self):
         # correct init

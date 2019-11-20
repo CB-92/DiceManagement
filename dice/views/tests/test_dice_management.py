@@ -23,7 +23,7 @@ class TestDiceManagement(unittest.TestCase):
             }
             self.assertEqual(body, expected)
 
-    def test_available_tests(self):
+    def test_available_sets(self):
         global _app
         if _app is None:
             tested_app = create_app(debug=True)
