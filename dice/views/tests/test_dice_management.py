@@ -72,12 +72,36 @@ class TestDiceManagement(unittest.TestCase):
             db.initDiceCollection("basic")
             db.initDiceCollection("halloween")
 
-            # wrong dice number
+            # non-integer dice number
+            reply = client.get('/rolldice/pippo/basic')
+            body = json.loads(str(reply.data, 'utf8'))
+            self.assertEqual(reply.status_code, 200)
+            self.assertEqual(body, {
+                "message": "Dice number needs to be an integer!",
+                "dice_set": "",
+                "roll": [],
+            }
+            )
+
+            # wrong dice number (<0)
+            reply = client.get('/rolldice/0/basic')
+            body = json.loads(str(reply.data, 'utf8'))
+            self.assertEqual(reply.status_code, 200)
+            self.assertEqual(body, {
+                "message": "Wrong dice number!",
+                "dice_set": "",
+                "roll": [],
+            }
+            )
+
+            # wrong dice number (> len diceset)
             reply = client.get('/rolldice/12/basic')
             body = json.loads(str(reply.data, 'utf8'))
             self.assertEqual(reply.status_code, 200)
             self.assertEqual(body, {
-                "message": "Wrong dice number!"
+                "message": "Wrong dice number!",
+                "dice_set": "",
+                "roll": [],
             }
             )
 
@@ -86,7 +110,9 @@ class TestDiceManagement(unittest.TestCase):
             body = json.loads(str(reply.data, 'utf8'))
             self.assertEqual(reply.status_code, 200)
             self.assertEqual(body, {
-                "message": "Dice set pippo doesn't exist!"
+                "message": "Dice set pippo doesn't exist!",
+                "dice_set": "",
+                "roll": [],
             })
 
             # correct roll

@@ -19,17 +19,30 @@ def _roll(dicenumber, dicesetid):
     try:
         dice = DiceSet(dicesetid)
     except NonExistingSetError as err:
-        return jsonify({"message": err.value})
+        return jsonify({
+            "message": err.value,
+            "dice_set": "",
+            "roll": [],
+        })
 
     try:
         roll = dice.throw_dice(dicenumber)
     except WrongDiceNumberError as err:
-        return jsonify({"message": err.value})
+        return jsonify({
+            "message": err.value,
+            "dice_set": "",
+            "roll": [],
+            })
 
     except WrongArgumentTypeError as err:
-        return jsonify({"message": err.value})
+        return jsonify({
+            "message": err.value,
+            "dice_set": "",
+            "roll": [],
+            })
 
     return jsonify({
+        "message": "Correct roll",
         "dice_set": dicesetid,
         "roll": roll})
 
