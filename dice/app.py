@@ -1,5 +1,5 @@
 from flask import Flask
-from dice.database import Database
+from dice.classes.database import Database
 from dice.views import blueprints
 
 
@@ -15,8 +15,8 @@ def create_app(debug=False):
     db.initDiceSets("dice/resources")
     db.remove_all_dice_in_set("basic")
     db.remove_all_dice_in_set("halloween")
-    db.initDiceCollection("dice/resources/basic_set")
-    db.initDiceCollection("dice/resources/halloween_set")
+    db.initDiceCollection("basic")
+    db.initDiceCollection("halloween")
 
     for bp in blueprints:
         app.register_blueprint(bp)

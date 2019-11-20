@@ -1,6 +1,6 @@
 import random as rnd
 import re
-from dice.database import Database
+from dice.classes.database import Database
 
 db = Database()
 

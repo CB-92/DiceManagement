@@ -23,13 +23,16 @@ class Database:
             }
             diceset.insert_one(t)
 
-    def initDiceCollection(self, dice_folder):
-        folder = glob.glob(os.path.join(dice_folder, '*.json'))
-        sorted(folder)
-        for filename in natsort.natsorted(folder, reverse=False):
-            with open(filename) as f:
-                file_data = json.load(f)
-            die.insert_one(file_data)
+    def initDiceCollection(self, dice_set_name):
+        dice_folder = diceset.find({"name": dice_set_name})
+
+        for e in dice_folder:
+            folder = glob.glob(os.path.join(e["folder"], '*.json'))
+            sorted(folder)
+            for filename in natsort.natsorted(folder, reverse=False):
+                with open(filename) as f:
+                    file_data = json.load(f)
+                die.insert_one(file_data)
 
     def getAllCollection(self, collection):
         return db[collection].find({})
