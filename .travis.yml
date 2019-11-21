@@ -1,10 +1,26 @@
-language: python
-python: 3.6
-env:
- - TOX_ENV=py36
+sudo: required
+
 services:
- - redis-server
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION: 1.23.2
+  - TOX_ENV=py36
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
 install:
  - pip install tox
+
+before_script:
+  - docker-compose up -d --build
+
 script:
- - tox -e $TOX_ENV
+  - tox -e $TOX_ENV
+
+after_script:
+  - docker-compose down
