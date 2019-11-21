@@ -1,0 +1,19 @@
+
+version: '3'
+services:
+  mongodb:
+    image: "leafney/alpine-mongo:latest"
+    container_name: "mongo"
+    environment:
+      - MONGO_INITDB_DATABASE=DiceDB
+    ports:
+      - "27017:27017"
+    command: mongod --bind_ip=0.0.0.0
+  dicemanager:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes: # for bind volume
+      - '.:/code'
+    environment:
+      PYTHONUNBUFFERED: 'true'
