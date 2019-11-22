@@ -19,8 +19,7 @@ install:
  - pip install tox
 
 before_script:
-  - docker-compose build
-  - docker-compose up
+  - docker-compose up -d --build
 
 script:
   - tox -e $TOX_ENV
