@@ -1,11 +1,14 @@
 sudo: required
 dist: trusty
 
-services:
-  - docker
+language: python
+python: 3.6
 
 env:
   - TOX_ENV=py36
+
+services:
+  - docker
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
