@@ -1,11 +1,13 @@
 import unittest
+import time
 from dice.classes.database import Database
-
+import pytest
 
 class TestDatabase(unittest.TestCase):
 
     def test_collection_die(self):
         db = Database()
+        time.sleep(3)
         db.initDiceSets("dice/resources")
         db.remove_all_dice_in_set("basic")
         db.remove_all_dice_in_set("halloween")
@@ -23,6 +25,7 @@ class TestDatabase(unittest.TestCase):
 
     def test_collection_dice(self):
         db = Database()
+        time.sleep(3)
         db.initDiceSets("dice/resources")
         db.remove_all_dice_in_set("basic")
         db.remove_all_dice_in_set("halloween")

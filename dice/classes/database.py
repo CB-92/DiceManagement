@@ -4,7 +4,7 @@ import natsort
 import os
 import glob
 
-client = pymongo.MongoClient("mongodb+srv://admin:admin@dicemanagement-6rx9o.azure.mongodb.net/test?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb://mongodb:27017/")
 db = client["DiceDB"]
 die = db["Die"]
 diceset = db["DiceSet"]
@@ -13,15 +13,15 @@ diceset = db["DiceSet"]
 class Database:
 
     def initDiceSets(self, res_folder):
-        db["DiceSet"].drop()
-        subfolders = [f.name for f in os.scandir(res_folder) if f.is_dir()]
-        for f in subfolders:
-            name = f.replace("_set", "")
-            t = {
-                "name": name,
-                "folder": res_folder + "/" + f
-            }
-            diceset.insert_one(t)
+        if("DiceSet" not in db.list_collection_names()):
+            subfolders = [f.name for f in os.scandir(res_folder) if f.is_dir()]
+            for f in subfolders:
+                name = f.replace("_set", "")
+                t = {
+                    "name": name,
+                    "folder": res_folder + "/" + f
+                }
+                diceset.insert_one(t)
 
     def initDiceCollection(self, dice_set_name):
         dice_folder = diceset.find({"name": dice_set_name})

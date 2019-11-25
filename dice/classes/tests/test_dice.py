@@ -6,6 +6,7 @@ from dice.classes.DiceSet import WrongArgumentTypeError, WrongDiceNumberError
 from dice.classes.DiceSet import NonExistingSetError
 
 
+
 class TestDie(unittest.TestCase):
 
     def test_die_init(self):
