@@ -20,7 +20,7 @@ def teardown_module(compose):
 class TestDatabase(unittest.TestCase):
 
     def test_collection_die(self):
-        setup_module()
+        compose = setup_module()
         db = Database()
         db.initDiceSets("dice/resources")
         db.remove_all_dice_in_set("basic")
