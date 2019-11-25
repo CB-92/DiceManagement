@@ -50,10 +50,6 @@ class TestDiceManagement(unittest.TestCase):
             body = json.loads(str(reply.data, 'utf8'))
             available_dicesets = body["available_dicesets"]
             self.assertEqual(len(available_dicesets), 2)
-            basic = available_dicesets[0]
-            self.assertEqual(basic["name"], "basic")
-            halloween = available_dicesets[1]
-            self.assertEqual(halloween["total_dice"], 5)
 
     def test_roll(self):
 
