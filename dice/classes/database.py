@@ -4,7 +4,6 @@ import natsort
 import os
 import glob
 
-# client = pymongo.MongoClient("mongodb+srv://admin:admin@dicemanagement-6rx9o.azure.mongodb.net/test?retryWrites=true&w=majority")
 client = pymongo.MongoClient("mongodb://mongodb:27017/")
 db = client["DiceDB"]
 die = db["Die"]
