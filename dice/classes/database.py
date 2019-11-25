@@ -4,7 +4,7 @@ import natsort
 import os
 import glob
 
-client = pymongo.MongoClient("mongodb://mongo:27017/")
+client = pymongo.MongoClient("mongodb://mongodb:27017/")
 db = client["DiceDB"]
 die = db["Die"]
 diceset = db["DiceSet"]
