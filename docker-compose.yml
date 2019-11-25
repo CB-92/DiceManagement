@@ -2,7 +2,7 @@
 version: '3'
 services:
   mongodb:
-    image: "leafney/alpine-mongo:latest"
+    image: "mongo"
     container_name: "mongodb"
     environment:
       - MONGO_INITDB_DATABASE=DiceDB
@@ -15,7 +15,5 @@ services:
       - "5000:5000"
     volumes: # for bind volume
       - '.:/code'
-    depends_on:
-      - mongodb
     environment:
       PYTHONUNBUFFERED: 'true'

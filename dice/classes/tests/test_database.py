@@ -13,14 +13,10 @@ def setup_module():
     return compose
 
 
-def teardown_module(compose):
-    compose.stop()
-
-
 class TestDatabase(unittest.TestCase):
 
     def test_collection_die(self):
-        compose = setup_module()
+        setup_module()
         db = Database()
         db.initDiceSets("dice/resources")
         db.remove_all_dice_in_set("basic")
@@ -37,10 +33,8 @@ class TestDatabase(unittest.TestCase):
         halloween_len = halloween_set.count()
         self.assertEqual(halloween_len, 5)
 
-        teardown_module(compose)
-        
     def test_collection_dice(self):
-        compose = setup_module()
+        setup_module()
         db = Database()
         db.initDiceSets("dice/resources")
         db.remove_all_dice_in_set("basic")
@@ -50,7 +44,6 @@ class TestDatabase(unittest.TestCase):
         diceset = db.getAllCollection("DiceSet")
         diceset_len = diceset.count()
         self.assertEqual(diceset_len, 2)
-        teardown_module(compose)
 
 
 if __name__ == '__main__':
