@@ -1,23 +1,13 @@
 import unittest
 import time
 from dice.classes.database import Database
-import testcontainers.compose
-
-COMPOSE_PATH = "/"  # The folder containing docker-compose.yml
-
-
-def setup_module():
-    compose = testcontainers.compose.DockerCompose(COMPOSE_PATH)
-    compose.start()
-    time.sleep(10)
-    return compose
 
 
 class TestDatabase(unittest.TestCase):
 
     def test_collection_die(self):
-        setup_module()
         db = Database()
+        time.sleep(3)
         db.initDiceSets("dice/resources")
         db.remove_all_dice_in_set("basic")
         db.remove_all_dice_in_set("halloween")
@@ -34,8 +24,8 @@ class TestDatabase(unittest.TestCase):
         self.assertEqual(halloween_len, 5)
 
     def test_collection_dice(self):
-        setup_module()
         db = Database()
+        time.sleep(3)
         db.initDiceSets("dice/resources")
         db.remove_all_dice_in_set("basic")
         db.remove_all_dice_in_set("halloween")

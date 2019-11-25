@@ -8,17 +8,25 @@ services:
       - MONGO_INITDB_DATABASE=DiceDB
     ports:
       - "27017:27017"
-    command: mongod --bind_ip_all
+    command: mongod --bind_ip=0.0.0.0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://0.0.0.0:27017"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+
   dicemanager:
     build: .
+    depends_on:
+      - mongodb
     ports:
       - "5000:5000"
     links:
-      - mongodb
-    depends_on:
-      - mongodb      
+      - mongodb     
     volumes: # for bind volume
       - '.:/code'
     environment:
-      WAIT_HOSTS: mongo:27017
+      WAIT_HOSTS: mongodb:27017
       PYTHONUNBUFFERED: 'true'
+    restart: on-failure
