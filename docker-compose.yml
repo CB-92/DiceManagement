@@ -3,12 +3,12 @@ version: '3'
 services:
   mongodb:
     image: "leafney/alpine-mongo:latest"
-    container_name: "mongo"
+    container_name: "mongodb"
     environment:
       - MONGO_INITDB_DATABASE=DiceDB
     ports:
       - "27017:27017"
-    command: mongod --bind_ip=0.0.0.0
+    command: mongodb --bind_ip=0.0.0.0
   dicemanager:
     build: .
     links:
