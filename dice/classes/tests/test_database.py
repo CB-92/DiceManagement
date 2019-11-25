@@ -3,7 +3,7 @@ import time
 from dice.classes.database import Database
 import testcontainers.compose
 
-COMPOSE_PATH = "ecs/compose"  # The folder containing docker-compose.yml
+COMPOSE_PATH = "/"  # The folder containing docker-compose.yml
 
 
 def setup_module():

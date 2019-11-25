@@ -11,11 +11,11 @@ services:
     command: mongod --bind_ip=0.0.0.0
   dicemanager:
     build: .
-    links:
-      - mongodb:mongodb
     ports:
       - "5000:5000"
     volumes: # for bind volume
       - '.:/code'
+    depends_on:
+      - mongodb
     environment:
       PYTHONUNBUFFERED: 'true'
