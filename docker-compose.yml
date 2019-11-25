@@ -12,7 +12,7 @@ services:
   dicemanager:
     build: .
     links:
-      - mongodb
+      - mongodb:mongodb
     ports:
       - "5000:5000"
     volumes: # for bind volume
