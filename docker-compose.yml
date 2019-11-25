@@ -8,12 +8,17 @@ services:
       - MONGO_INITDB_DATABASE=DiceDB
     ports:
       - "27017:27017"
-    command: mongod --bind_ip=0.0.0.0
+    command: mongod --bind_ip_all
   dicemanager:
     build: .
     ports:
       - "5000:5000"
+    links:
+      - mongodb
+    depends_on:
+      - mongodb      
     volumes: # for bind volume
       - '.:/code'
     environment:
+      WAIT_HOSTS: mongo:27017
       PYTHONUNBUFFERED: 'true'
