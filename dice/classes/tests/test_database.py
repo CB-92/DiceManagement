@@ -1,7 +1,7 @@
 import unittest
 import time
 from dice.classes.database import Database
-
+import pytest
 
 class TestDatabase(unittest.TestCase):
 
